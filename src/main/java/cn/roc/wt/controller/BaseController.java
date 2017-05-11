@@ -7,4 +7,5 @@ package cn.roc.wt.controller;
  * @Modified By:
  */
 public class BaseController {
+
 }

@@ -1,4 +1,4 @@
-package cn.roc.wt.mapper;
+package cn.roc.wt.dao.mapper;
 
 /**
  * @Author Roc Chen
