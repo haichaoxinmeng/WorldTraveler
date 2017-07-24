@@ -7,4 +7,8 @@ package cn.roc.wt.study.quratz;
  * @Modified By:
  */
 public class CronTriggerExample {
+
+    public void example1() {
+
+    }
 }

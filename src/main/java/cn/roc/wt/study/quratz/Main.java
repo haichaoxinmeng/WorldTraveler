@@ -1,5 +1,7 @@
 package cn.roc.wt.study.quratz;
 
+import org.quartz.SimpleTrigger;
+
 /**
  * @Author Roc Chen
  * @Description
@@ -7,9 +9,17 @@ package cn.roc.wt.study.quratz;
  * @Modified By:
  */
 public class Main {
+
     public static void main(String[] args) {
-//        new Example().example1();
-//        new Example().example2();
-        new SimpleTriggerExample().example3();
+        new Main().SimpleTriggerTest();
+
+    }
+
+    public void CronTriggerTest(){
+        new CronTriggerExample().example1();
+    }
+    public void SimpleTriggerTest(){
+//        new SimpleTriggerExample().example1();
+//        new SimpleTriggerExample().example2();
     }
 }
