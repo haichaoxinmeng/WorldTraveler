@@ -12,10 +12,7 @@
     <param-value>
       classpath:spring-*.xml;
     </param-value>
-  </context-param>                                <!--spring 初始化 监听器-->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+  </context-param>
 
   <!--配置log4j-->
   <context-param>
@@ -28,6 +25,11 @@
   </context-param>
   <listener>                                     <!--Spring log4j 监听 -->
     <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+
+  <!--spring 初始化 监听器-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
   <!--编码过滤器-->

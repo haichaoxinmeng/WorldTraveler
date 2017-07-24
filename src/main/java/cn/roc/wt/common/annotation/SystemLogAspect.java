@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 
 
-
 @Aspect
 @Component
 public class SystemLogAspect {

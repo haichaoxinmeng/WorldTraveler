@@ -13,8 +13,6 @@
     <!-- 扫描文件（自动注入） -->
     <context:component-scan base-package="
         cn.roc.wt.dao;
-        cn.roc.wt.service
-        cn.roc.wt.dao;
         cn.roc.wt.service;
         cn.roc.wt.common.annotation;"/>
 

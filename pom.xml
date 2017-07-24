@@ -18,6 +18,8 @@
     <log4j.version>1.2.17</log4j.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <dbcp.version>1.4</dbcp.version>
+    <quratz.version>2.2.3</quratz.version>
+    <joda.version>2.9.9</joda.version>
   </properties>
 
   <!-- 依赖jar包 -->
@@ -268,8 +270,27 @@
     </dependency>
     <!-- 上传组件包 end -->
 
-  </dependencies>
+    <!--任务调度Quratz start-->
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>${quratz.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz-jobs</artifactId>
+      <version>${quratz.version}</version>
+    </dependency>
+    <!--任务调度Quratz end-->
 
+    <!--时期与时间库-->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${joda.version}</version>
+    </dependency>
+
+  </dependencies>
 
   <build>
     <finalName>WorldTraveler</finalName>
