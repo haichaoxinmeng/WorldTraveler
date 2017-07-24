@@ -9,7 +9,7 @@ import org.quartz.*;
  * @Date:Created ChenQiang in 10:01 2017/7/24
  * @Modified By:
  */
-public class Myjob implements Job{
+public class SimpleJob implements Job{
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         JobKey jobKey = jobExecutionContext.getJobDetail().getKey();

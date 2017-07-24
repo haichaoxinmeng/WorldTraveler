@@ -11,7 +11,7 @@ import java.util.Date;
  * @Date:Created ChenQiang in 10:31 2017/7/24
  * @Modified By:
  */
-public class Example {
+public class SimpleTriggerExample {
     /**
      * 用例1：简单的任务调度
      */
@@ -25,7 +25,7 @@ public class Example {
             Date runTime = DateBuilder.evenMinuteDate(new Date());  //获取时间
 
             //任务
-            JobDetail job = JobBuilder.newJob(Myjob.class).withIdentity("job1", "group1").build();
+            JobDetail job = JobBuilder.newJob(SimpleJob.class).withIdentity("job1", "group1").build();
 
             //触发器
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger1", "group1").startAt(runTime).build();
@@ -63,7 +63,7 @@ public class Example {
             //TODO:SimpleTrigger
 
             //只执行一次的任务
-            JobDetail job = JobBuilder.newJob(Myjob.class).withIdentity("job1", "group1").build();
+            JobDetail job = JobBuilder.newJob(SimpleJob.class).withIdentity("job1", "group1").build();
 
             SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder.newTrigger().withIdentity("trigger1", "group1").startAt(startTime).build();
 
@@ -78,7 +78,7 @@ public class Example {
              * withIntervalInSeconds():间隔多久执行一次：单位：秒
              * withRepeatCount():执行多少次
              */
-            job = JobBuilder.newJob(Myjob.class).withIdentity("job2", "group1").build();
+            job = JobBuilder.newJob(SimpleJob.class).withIdentity("job2", "group1").build();
 
             trigger = TriggerBuilder.newTrigger().withIdentity("trigger2", "group1").startAt(startTime)
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(10).withRepeatCount(10)).build();
@@ -93,7 +93,7 @@ public class Example {
              * futureDate():多少时间后，执行任务
              * DateBuilder.futureDate(2, DateBuilder.IntervalUnit.MINUTE)：得到一个多少分钟后的时间作为任务的开始时间
              */
-            job = JobBuilder.newJob(Myjob.class).withIdentity("job3","group1").build();
+            job = JobBuilder.newJob(SimpleJob.class).withIdentity("job3","group1").build();
 
             trigger = (SimpleTrigger) TriggerBuilder.newTrigger().withIdentity("trigger3","group1")
                     .startAt(DateBuilder.futureDate(2, DateBuilder.IntervalUnit.MINUTE)).build();
@@ -109,7 +109,7 @@ public class Example {
              * withIntervalInSeconds():间隔多久执行一次：单位：秒
              * SimpleScheduleBuilder.simpleSchedule():还有间隔多少分钟、多少小时的方法
              */
-            job = JobBuilder.newJob(Myjob.class).withIdentity("job4", "group1").build();
+            job = JobBuilder.newJob(SimpleJob.class).withIdentity("job4", "group1").build();
 
             trigger = TriggerBuilder.newTrigger().withIdentity("trigger4", "group1")
                     .startAt(startTime)
@@ -129,7 +129,7 @@ public class Example {
              * withIntervalInMinutes():间隔多少时间：单位分钟
              * endAt():结束时间
              */
-            job = JobBuilder.newJob(Myjob.class).withIdentity("job5","group1").build();
+            job = JobBuilder.newJob(SimpleJob.class).withIdentity("job5","group1").build();
 
             trigger = TriggerBuilder.newTrigger().withIdentity("trigger5", "group1")
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule()
@@ -140,20 +140,11 @@ public class Example {
 
             scheduler.scheduleJob(job,trigger);
 
-
             scheduler.start();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    /**
-     * 用例3:CronTrigger 触发器：复杂的时间触发器：运用Cron 表达式
-     */
-    public void example3(){
-
     }
 
 }
