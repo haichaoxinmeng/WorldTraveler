@@ -77,6 +77,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
+      <!-- spring-support.jar 这个jar 文件包含支持UI模版（Velocity，FreeMarker，JasperReports），邮件服务，脚本服务(JRuby)， 缓存Cache（EHCache），任务计划Scheduling（uartz）方面的类。
+           外部依赖spring-context, (spring-jdbc, Velocity, FreeMarker, JasperReports, BSH, Groovy, JRuby, Quartz, EHCache) -->
       <artifactId>spring-context-support</artifactId>
       <version>${srping.version}</version>
     </dependency>

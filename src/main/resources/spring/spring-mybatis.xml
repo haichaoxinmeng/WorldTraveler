@@ -15,8 +15,11 @@
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-          init-method="init" destroy-method="close">
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="file:${cfg.project.dir}/cfg_${cfg.env}.properties"/>
+
+    <!-- 数据库连接 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName">
             <value>${jdbc_driverClassName}</value>
         </property>
@@ -53,17 +56,14 @@
         <property name="removeAbandoned">
             <value>${jdbc_removeAbandoned}</value>
         </property>
-
         <!-- 清除无用连接的等待时间 -->
         <property name="removeAbandonedTimeout">
             <value>${jdbc_removeAbandonedTimeout}</value>
         </property>
-
-
+        <!-- 用log记录丢弃的连接，可以设置为true -->
         <property name="logAbandoned">
             <value>${jdbc_logAbandoned}</value>
         </property>
-
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
         <property name="timeBetweenEvictionRunsMillis">
             <value>${jdbc_timeBetweenEvictionRunsMillis}</value>
@@ -76,7 +76,6 @@
         <property name="filters">
             <value>${jdbc_filters}</value>
         </property>
-
         <!-- 连接属性 -->
         <property name="connectionProperties">
             <value>clientEncoding=UTF-8</value>
@@ -87,17 +86,16 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="mapperLocations">
             <array>
-                <value>classpath:mappings/*Mapper.xml</value>
+                <value>classpath:/mappings/*Mapper.xml</value>
             </array>
         </property>
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-
     <!-- spring与mybatis整合配置，扫描所有dao -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
           p:basePackage="cn.roc.wt.dao" p:sqlSessionFactoryBeanName="sqlSessionFactory" >
-        <property name="markerInterface" value="cn.roc.wt.dao.mapper.BaseMapper" />
+        <property name="markerInterface" value="cn.roc.wt.dao.mapper.BaseMapper" /><!-- 只需向BaseMapper注入sqlSessionFactory 其余Mapper只需继承BaseMapper即可 -->
     </bean>
 
     <!-- 对数据源进行事务管理 -->

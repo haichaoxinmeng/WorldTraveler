@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <!-- Spring整合Quartz进行配置遵循下面的步骤：
+           1：定义工作任务的Job
+           2：定义触发器Trigger，并将触发器与工作任务绑定
+           3：定义调度器，并将Trigger注册到Scheduler
+    -->
+
+
+    <!-- 1：定义任务的bean ，这里使用JobDetailFactoryBean,也可以使用MethodInvokingJobDetailFactoryBean ，配置类似-->
+    <!--<bean name="hwJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
+        <!--&lt;!&ndash; 指定job的名称 &ndash;&gt;-->
+        <!--<property name="name" value="hw_job"/>-->
+        <!--&lt;!&ndash; 指定job的分组 &ndash;&gt;-->
+        <!--<property name="group" value="hw_group"/>-->
+        <!--&lt;!&ndash; 指定具体的job类 &ndash;&gt;-->
+        <!--<property name="jobClass" value="cn.roc.wt.study.quartz.spring.HelllJob"/>-->
+        <!--&lt;!&ndash; 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中会删除该任务  &ndash;&gt;-->
+        <!--<property name="durability" value="true"/>-->
+        <!--&lt;!&ndash; 指定spring容器的key，如果不设定在job中的jobmap中是获取不到spring容器的 &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="applicationContextJobDataKey" value="applicationContext"/>&ndash;&gt;-->
+    <!--</bean>-->
+    <!-- 1：定义任务的bean ，这里使用MethodInvokingJobDetailFactoryBean,也可以使用obDetailFactoryBean，配置类似-->
+    <!--<bean id = "helllJob1" class="cn.roc.wt.study.quartz.spring.HelllJob1"></bean>-->
+    <!--<bean name="hwJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+        <!--&lt;!&ndash; 指定job的名称 &ndash;&gt;-->
+        <!--<property name="name" value="hw_job"/>-->
+        <!--&lt;!&ndash; 指定job的分组 &ndash;&gt;-->
+        <!--<property name="group" value="hw_group"/>-->
+        <!--&lt;!&ndash; 指定具体的job类 &ndash;&gt;-->
+        <!--<property name="targetObject" ref="helllJob1"/>&lt;!&ndash;该类不需要实现Job接口或者继承JobDetailBean抽象类&ndash;&gt;-->
+        <!--&lt;!&ndash; 指定具体的job类方法 &ndash;&gt;-->
+        <!--<property name="targetMethod" value="execute"/>&lt;!&ndash;没有办法传递参数：所以该方法要是无参方法&ndash;&gt;-->
+        <!--&lt;!&ndash; 上一次未执行完成的，要等待有再执行。 &ndash;&gt;-->
+        <!--<property name="concurrent" value="false"></property>-->
+    <!--</bean>-->
+
+    <!-- 2.1：定义触发器的bean，定义一个Simple的Trigger，一个触发器只能和一个任务进行绑定 -->
+    <!-- <bean name="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        指定Trigger的名称
+        <property name="name" value="hw_trigger"/>
+        指定Trigger的名称
+        <property name="group" value="hw_trigger_group"/>
+        指定Tirgger绑定的Job
+        <property name="jobDetail" ref="hwJob"/>
+        指定Trigger的延迟时间 1s后运行
+        <property name="startDelay" value="1000"/>
+        指定Trigger的重复间隔  5s
+        <property name="repeatInterval" value="5000"/>
+        指定Trigger的重复次数
+        <property name="repeatCount" value="5"/>
+    </bean> -->
+    <!-- 2.2：定义触发器的bean，定义一个Cron的Trigger，一个触发器只能和一个任务进行绑定 -->
+    <!--<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+        <!--&lt;!&ndash; 指定Trigger的名称 &ndash;&gt;-->
+        <!--<property name="name" value="hw_trigger"/>-->
+        <!--&lt;!&ndash; 指定Trigger的分组 &ndash;&gt;-->
+        <!--<property name="group" value="hw_trigger_group"/>-->
+        <!--&lt;!&ndash; 指定Tirgger绑定的Job &ndash;&gt;-->
+        <!--<property name="jobDetail" ref="hwJob"/>-->
+        <!--&lt;!&ndash; 指定Cron 的表达式 ，当前是每隔1s运行一次 &ndash;&gt;-->
+        <!--<property name="cronExpression" value="0/30 * * * * ?" />-->
+    <!--</bean>-->
+
+
+    <!-- 3.定义调度器，并将Trigger注册到调度器中 -->
+    <!--<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                &lt;!&ndash; <ref bean="simpleTrigger"/> &ndash;&gt;
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+        &lt;!&ndash; <property name="autoStartup" value="true" /> &ndash;&gt;
+    </bean>-->
+
+    <!-- 3.定义调度器，并将Trigger注册到调度器中 -->
+    <bean id="quartzScheduler" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- 需要用到jdbc来持久化存储 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 是否自动启动 -->
+        <property name="autoStartup" value="true" />
+        <!-- applicationContextSchedulerContextKey：
+                是org.springframework.scheduling.quartz.SchedulerFactoryBean这个类中
+                把spring上下文以key/value的方式存放在了quartz的上下文中了，
+                可以用applicationContextSchedulerContextKey所定义的key得到对应的spring上下文-->
+        <property name="applicationContextSchedulerContextKey"  value="applicationContextKey" />
+        <!-- 需要overwrite已经存在的job，如果需要动态的修改已经存在的job，就需要设置为true，否则会以数据库中已经存在的为准 -->
+        <property name="overwriteExistingJobs" value="true" />
+        <!-- quartz的基本配置，报名线程池的设置，最大的连接数等 -->
+        <property name="configLocation" value="file:${cfg.project.dir}/quartz_${cfg.env}.properties"/>
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                <!--<ref bean="cronTrigger"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    </bean>
+
+</beans>

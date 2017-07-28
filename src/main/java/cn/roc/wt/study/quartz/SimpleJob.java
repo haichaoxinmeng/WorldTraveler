@@ -1,4 +1,4 @@
-package cn.roc.wt.study.quratz;
+package cn.roc.wt.study.quartz;
 
 import cn.roc.wt.common.util.DateUtil;
 import org.quartz.*;

@@ -1,6 +1,4 @@
-package cn.roc.wt.study.quratz;
-
-import org.quartz.SimpleTrigger;
+package cn.roc.wt.study.quartz;
 
 /**
  * @Author Roc Chen

@@ -14,11 +14,13 @@
 	http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="file:${cfg.project.dir}/cfg_${cfg.env}.properties"/>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
 
     <!-- 扫描controller（controller层注入） -->
-    <context:component-scan base-package="cn.roc.wt.controller" />
+    <context:component-scan base-package="cn.roc.wt.controller"/>
 
     <!-- 添加注解驱动 -->
     <mvc:annotation-driven />

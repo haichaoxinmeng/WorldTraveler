@@ -7,4 +7,5 @@ package cn.roc.wt.dao.mapper;
  * @Modified By:
  */
 public class BaseMapper {
+
 }

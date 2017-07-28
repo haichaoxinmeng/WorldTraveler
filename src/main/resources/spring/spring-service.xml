@@ -7,7 +7,7 @@
       http://www.springframework.org/schema/context
       http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 引入jdbc配置文件 -->
+    <!-- 引入配置文件 -->
     <context:property-placeholder location="file:${cfg.project.dir}/cfg_${cfg.env}.properties"/>
 
     <!-- 扫描文件（自动注入） -->
