@@ -18,6 +18,7 @@
     <log4j.version>1.2.17</log4j.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <dbcp.version>1.4</dbcp.version>
+    <druid.version>1.0.15</druid.version>
     <quratz.version>2.2.3</quratz.version>
     <joda.version>2.9.9</joda.version>
   </properties>
@@ -126,18 +127,18 @@
     <dependency>
       <groupId>com.alibaba</groupId><!--数据库连接池DRUID-->
       <artifactId>druid</artifactId>
-      <version>1.0.15</version>
+      <version>${druid.version}</version>
     </dependency>
- <!--   <dependency>
+    <dependency>
       <groupId>commons-dbcp</groupId>
-      <artifactId>commons-dbcp</artifactId>&lt;!&ndash;数据库连接池dbcp&ndash;&gt;
+      <artifactId>commons-dbcp</artifactId><!--数据库连接池dbcp-->
       <version>${dbcp.version}</version>
-    </dependency>-->
-<!--    <dependency>
+    </dependency>
+    <dependency>
       <groupId>c3p0</groupId>
-      <artifactId>c3p0</artifactId>         &lt;!&ndash;数据库连接池c3p0&ndash;&gt;
+      <artifactId>c3p0</artifactId>         <!-- 数据库连接池c3p0 -->
       <version>${c3p0.version}</version>
-    </dependency>-->
+    </dependency>
     <!-- 数据库 end-->
 
     <!--pagehelper 分页插件-->
@@ -179,11 +180,11 @@
       <artifactId>aspectjweaver</artifactId><!--使用Spring AOP切面需要引入的jar-->
       <version>1.7.4</version>
     </dependency>
-<!--    <dependency>
+    <dependency>
       <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>&lt;!&ndash;使用AOP切面需要引入的jar  引入了org.aspectj，可以不引入cglib&ndash;&gt;
+      <artifactId>cglib</artifactId><!--使用AOP切面需要引入的jar  引入了org.aspectj，可以不引入cglib-->
       <version>2.2</version>
-    </dependency>-->
+    </dependency>
     <!--AOP切面框架 end-->
 
     <!-- log 日志 start -->
@@ -291,6 +292,19 @@
       <artifactId>joda-time</artifactId>
       <version>${joda.version}</version>
     </dependency>
+
+    <!-- email start-->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId><!--apache的开源项目-模板引擎(Velocity)-->
+      <artifactId>velocity</artifactId>
+      <version>1.7</version>
+    </dependency>
+    <!-- email end-->
 
   </dependencies>
 
